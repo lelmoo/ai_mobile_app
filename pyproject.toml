@@ -1,0 +1,9 @@
+[project]
+name = "ai_mobile_app"
+version = "0.0.1"
+dependencies = [
+    "librosa",
+    "numpy",
+    "scipy",
+    "flask"
+]
