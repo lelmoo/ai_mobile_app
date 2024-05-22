@@ -4,3 +4,4 @@ __pycache__/
 songs_ranking.py
 song.wav
 venv/
+database.db
