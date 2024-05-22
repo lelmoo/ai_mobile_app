@@ -55,6 +55,18 @@ def init_db():
     cursor.execute(query)
     conn.commit()
 
+def delete_song():
+    """
+    Gets json with {"target_id": int}
+    """
+    json_data = request.get_json()
+    if not validate(json_data, ["target_id"]):
+        return Response(status=400)
+
+    query = "DELETE FROM song_features WHERE id = ?"
+    cursor.execute(query, json_data["target_id"])
+    conn.commit()
+
 def main():
     init_db()
     app = Flask(__name__)
