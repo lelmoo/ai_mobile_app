@@ -3,7 +3,8 @@ import numpy as np
 from scipy.spatial.distance import cosine
 
 import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning) 
+
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 def calculate_mfcc(file_path, n_mfcc=13):
@@ -22,22 +23,19 @@ def calculate_mfcc(file_path, n_mfcc=13):
     return np.mean(mfcc, axis=1)
 
 
-def rank_tracks_cosine(target_track, track_list):
+def rank_tracks_cosine(target_mfcc, mfcc_dict):
     """
     Rank tracks by cosine distance to the target track.
 
-    :param target_track: Path to the target audio file
-    :param track_list: List of paths to audio files to rank
+    :param target_track: Feature list of the target audio file
+    :param track_list: Dict[int, List[features]]of features of audio files to rank
     :return: List of tracks sorted by similarity to the target track
     """
-    target_mfcc = calculate_mfcc(target_track)
-    track_array = np.array(track_list)
 
-    track_mfccs = np.array([calculate_mfcc(track) for track in track_list])
+    target_mfcc = np.array(target_mfcc)
+    for key in mfcc_dict:
+        mfcc_dict[key] = np.array(mfcc_dict[key])
 
-    distances = np.array([cosine(target_mfcc, track_mfcc) for track_mfcc in track_mfccs])
+    distances = {key: cosine(target_mfcc, mfcc_dict[key]) for key in mfcc_dict}
 
-    sorted_indices = np.argsort(distances)
-    sorted_tracks = track_array[sorted_indices]
-
-    return sorted_tracks
+    return [k for k, _ in sorted(distances.items(), key=lambda item: item[1])]

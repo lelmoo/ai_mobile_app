@@ -1,0 +1,6 @@
+ai_mobile_app.egg-info/
+build/
+__pycache__/
+*.wav
+venv/
+database.db
