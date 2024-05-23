@@ -3,7 +3,8 @@ import numpy as np
 from scipy.spatial.distance import cosine
 
 import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning) 
+
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 def calculate_mfcc(file_path, n_mfcc=13):
@@ -35,9 +36,12 @@ def rank_tracks_cosine(target_track, track_list):
 
     track_mfccs = np.array([calculate_mfcc(track) for track in track_list])
 
-    distances = np.array([cosine(target_mfcc, track_mfcc) for track_mfcc in track_mfccs])
+    distances = np.array(
+        [cosine(target_mfcc, track_mfcc) for track_mfcc in track_mfccs]
+    )
 
     sorted_indices = np.argsort(distances)
     sorted_tracks = track_array[sorted_indices]
 
     return sorted_tracks
+

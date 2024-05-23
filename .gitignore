@@ -1,7 +1,6 @@
 ai_mobile_app.egg-info/
 build/
 __pycache__/
-songs_ranking.py
 song.wav
 venv/
 database.db
