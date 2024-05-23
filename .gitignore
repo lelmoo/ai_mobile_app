@@ -1,6 +1,6 @@
 ai_mobile_app.egg-info/
 build/
 __pycache__/
-song.wav
+*.wav
 venv/
 database.db
